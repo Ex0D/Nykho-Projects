@@ -1,0 +1,3 @@
+packages:
+  - 'twitch-bot/**'
+  - 'twitch-play-trackmania/**'
