@@ -19,7 +19,6 @@ twitchBotToken=
 ```
 pnpm run start
 ```
-***
 
 ## Commands :
 ► Prefix command (default "+") :
