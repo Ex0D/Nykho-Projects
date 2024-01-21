@@ -23,7 +23,6 @@ module.exports = {
                     commandsAlreadyExist.push(replacer);
                 });
 
-                console.log(commandsAlreadyExist);
                 if (commandsAlreadyExist.includes(commandName))
                 {
                     return client.say(channel, `${commandName} est une commande du bot, impossible de la remplacer !`);
