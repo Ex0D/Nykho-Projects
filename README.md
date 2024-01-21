@@ -1,4 +1,4 @@
-# nykho_projects
-Projects for Nykho
+# Nykho_projects
+This repo lists all projects involving Nykho, each folder contain one project
 
-Incoming...
+► [twitch-bot](https://github.com/Ex0D/Nykho-Projects/tree/main/twitch-bot)
