@@ -17,6 +17,11 @@ class MainDatabase extends QuickDB
 
         return prefix;
     }
+
+    async setPrefix(prefix)
+    {
+        return await this.set("config.prefix", prefix);
+    }
 }
 
 module.exports = {
