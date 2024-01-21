@@ -1,3 +1,4 @@
+const fs = require("node:fs");
 const { MainDatabase: db } = require("../utils/database.js");
 
 module.exports = {
@@ -11,6 +12,21 @@ module.exports = {
                 if (!commandName)
                 {
                     return client.say(channel, "Il manque le nom de la commande pour pouvoir la créer !");
+                }
+
+                const commandsAlreadyExist = [];
+                fs.readdirSync(`${__dirname}`)
+                .filter(file => file)
+                .forEach((i) =>
+                {
+                    const replacer = i.replace(".js", "");
+                    commandsAlreadyExist.push(replacer);
+                });
+
+                console.log(commandsAlreadyExist);
+                if (commandsAlreadyExist.includes(commandName))
+                {
+                    return client.say(channel, `${commandName} est une commande du bot, impossible de la remplacer !`);
                 }
 
                 const searchCommand = await db.has(`txt.${commandName}`);
@@ -44,7 +60,7 @@ module.exports = {
                 const searchCommandToDelete = await db.has(`txt.${commandToDelete}`);
                 if (searchCommandToDelete)
                 {
-                    await db.delete(`${commandToDelete}`);
+                    await db.delete(`txt.${commandToDelete}`);
                     client.say(channel, `La commande ${commandToDelete} a bien été supprimé !`);
                 }
                 else
@@ -78,6 +94,10 @@ module.exports = {
 
                     await db.set(`txt.${commandToEdit}`, `${textToEdit}`);
                 }
+            break;
+
+            default:
+                client.say(channel, `Mauvaise utilisation de la commande txt`);
             break;
         }
     },
