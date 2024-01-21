@@ -50,6 +50,7 @@ module.exports = {
             break;
 
             case "del":
+            case "delete":
                 const commandToDelete = args[1];
 
                 if (!commandToDelete)
