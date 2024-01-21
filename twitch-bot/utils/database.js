@@ -4,7 +4,7 @@ class MainDatabase extends QuickDB
 {
     constructor()
     {
-        super({ filePath: `${process.cwd()}/../db/database.sqlite`});
+        super({ filePath: `${__dirname}/../../db/database.sqlite`});
     }
 
     async getPrefix()

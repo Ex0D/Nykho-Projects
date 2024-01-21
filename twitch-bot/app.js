@@ -1,4 +1,4 @@
-require("dotenv").config({ path: `${process.cwd()}/../.env` });
+require("dotenv").config({ path: `${__dirname}/../.env` });
 const tmi = require("tmi.js");
 const loadCommands = require("./utils/loadCommands.js");
 const { loadSchedule, checkMessagesActivity } = require("./utils/scheduleUtils.js");
@@ -21,7 +21,7 @@ const client = new tmi.Client({
         maxReconnectAttempts: 3,
         reconnectInterval: 15
     },
-    channels: ["nykho"]
+    channels: ["ex_ode"]
 });
 
 client.commands = new Map();
