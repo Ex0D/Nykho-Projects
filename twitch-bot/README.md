@@ -51,3 +51,7 @@ To delete an schedule command :
 ```
 +txt del [commandName]
 ```
+- Edit custom text commands :
+```
++txt edit [commandName] [message]
+```
