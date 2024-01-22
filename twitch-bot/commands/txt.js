@@ -93,6 +93,7 @@ module.exports = {
                     }
 
                     await db.set(`txt.${commandToEdit}`, `${textToEdit}`);
+                    client.say(channel, `${commandToEdit} a bien été édité !`);
                 }
             break;
 
