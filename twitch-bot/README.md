@@ -29,11 +29,11 @@ pnpm run start
 ► Schedule command (based on time or activity)
 - Time :
 ```
-+schedule add time [commandName] [cronExpression with 5 arguments] [message]
++schedule add [commandName] time [cronExpression with 5 arguments] [message]
 ```
 - Activity :
 ```
-+schedule add activity [commandName] [numberOfMessages] [message]
++schedule add [commandName] activity [numberOfMessages] [message]
 ```
 
 To delete an schedule command :
