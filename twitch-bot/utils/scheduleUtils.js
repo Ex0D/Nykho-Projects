@@ -8,10 +8,10 @@ async function checkMessagesActivity(client)
 
     for (i in allSchedule)
     {
-        if (allSchedule[i].numberOfMessages === allSchedule[i].activity)
+        if (allSchedule[i].activity >= allSchedule[i].numberOfMessages)
         {
             await db.set(`schedule.${i}.activity`, 0);
-            return client.say(client.getChannels()[0], allSchedule[i].text);
+            return client.say(client.getChannels()[0], allSchedule[i].activityText);
         }
         else
         {
