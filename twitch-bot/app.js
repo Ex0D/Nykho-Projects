@@ -29,11 +29,11 @@ client.connect();
 
 client.once("connected", async () =>
 {
-    const prefix = await db.getPrefix();
     loadSchedule(client);
     loadCommands(client);
     client.on("chat", async (channel, tags, message, self) =>
     {
+        const prefix = await db.getPrefix();
         if (self) return;
         if (!message.startsWith(prefix))
         {
