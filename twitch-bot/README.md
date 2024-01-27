@@ -41,6 +41,11 @@ To delete an schedule command :
 +schedule del [commandName]
 ```
 
+To list all schedule commands :
+```
++schedule list
+```
+
 ► Text commands
 
 - Add custom text commands :
@@ -54,4 +59,8 @@ To delete an schedule command :
 - Edit custom text commands :
 ```
 +txt edit [commandName] [message]
+```
+- List custom text commands :
+```
++txt list
 ```
