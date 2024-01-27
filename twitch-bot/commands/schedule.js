@@ -136,6 +136,13 @@ module.exports = {
 
             break;
 
+            case "list":
+                const listSchedule = await db.get(`schedule`);
+                const strSchedule = Object.keys(listSchedule).reverse().join(" | ");
+
+                client.say(channel, `Liste des tâches actives : ${strSchedule}`);
+            break;
+
             default:
                 client.say(channel, "Mauvaise utilisation de la commande schedule");
             break;
