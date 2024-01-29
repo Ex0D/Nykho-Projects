@@ -29,19 +29,14 @@ module.exports = {
 
                 if (timeOrActivity === "time")
                 {
+                    const cronSliced = args.slice(3, 8);
 
-                    const seconds = args[3];
-                    const minutes = args[4];
-                    const day = args[5];
-                    const month = args[6];
-                    const week = args[7];
-
-                    if (!seconds || !minutes || !day || !month || !week)
+                    if (!cronSliced)
                     {
                         return client.say(channel, `Expression cron non valide ! (Il manque des paramètres de temps)`);
                     }
 
-                    const addCronString = `${seconds} ${minutes} ${day} ${month} ${week}`;
+                    const addCronString = cronSliced.join(" ");
 
                     if (!cron.validate(addCronString))
                     {
@@ -132,6 +127,94 @@ module.exports = {
                 {
                     await db.delete(`schedule.${scheduleToDelete}`);
                     return client.say(channel, `La tâche ${scheduleToDelete} a bien été supprimé !`);
+                }
+
+            break;
+
+            case "edit":
+                const scheduleToEdit = args[1];
+
+                if (!scheduleToEdit)
+                {
+                    return client.say(channel, `Aucun paramètre passé pour éditer la tâche !`);
+                }
+
+                const searchScheduleToEdit = await db.has(`schedule.${scheduleToEdit}`);
+
+                if (!searchScheduleToEdit)
+                {
+                    return client.say(channel, `${scheduleToEdit} n'existe pas !`)
+                }
+
+                const isTimer = await db.has(`schedule.${scheduleToEdit}.time`);
+
+                if (isTimer)
+                {
+                    const editCron = args.slice(2, 7);
+
+                    if (!editCron)
+                    {
+                        return client.say(channel, "Expression cron non valide ! (Il manque des paramètres de temps)");
+                    }
+
+                    const editCronString = editCron.join(" ");
+
+                    if (!cron.validate(editCronString))
+                    {
+                        return client.say(channel, `Expression cron non valide ! (Format cron incorrect)`);
+                    }
+
+                    const editMsgSpliced = args.splice(7).join(" ");
+
+                    if (!editMsgSpliced)
+                    {
+                        return client.say(channel, "Il manque le texte à sauvegarder !");
+                    }
+
+                    const tasks = cron.getTasks();
+
+                    for (let [key] of tasks.entries())
+                    {
+                        if (key.includes(scheduleToEdit))
+                        {
+                            tasks.get(scheduleToEdit).stop();
+                        }
+                    }
+
+                    await db.set(`schedule.${scheduleToEdit}.time`, editCronString);
+                    await db.set(`schedule.${scheduleToEdit}.text`, editMsgSpliced);
+
+                    cron.schedule(editCronString, () =>
+                    {
+                        client.say(channel, editMsgSpliced);
+                    },
+                    {
+                        name: scheduleToEdit
+                    });
+
+                    return client.say(channel, `La tâche ${scheduleToEdit} a bien été édité !`);
+                }
+                else
+                {
+                    const editNumberMessages = args[2];
+
+                    if (!editNumberMessages)
+                    {
+                        return client.say(channel, "Il manque le nombre de messages");
+                    }
+
+                    const editStringSpliced = args.splice(3).join(" ");
+
+                    if (!editStringSpliced)
+                    {
+                        return client.say(channel, "Il manque le texte à sauvegarder !");
+                    }
+
+                    await db.set(`schedule.${scheduleToEdit}.activity`, 0);
+                    await db.set(`schedule.${scheduleToEdit}.numberOfMessages`, parseInt(editNumberMessages));
+                    await db.set(`schedule.${scheduleToEdit}.activityText`, editStringSpliced);
+
+                    return client.say(channel, `La tâche ${scheduleToEdit} a bien été édité !`);
                 }
 
             break;
