@@ -41,6 +41,11 @@ To delete an schedule command :
 +schedule del [commandName]
 ```
 
+To edit a command :
+```
++schedule edit [commandName] [number || cronExpression with 5 arguments] [message]
+```
+
 To list all schedule commands :
 ```
 +schedule list
