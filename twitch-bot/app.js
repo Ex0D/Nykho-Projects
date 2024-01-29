@@ -1,3 +1,4 @@
+// Load dependencies / utils
 require("dotenv").config({ path: `${__dirname}/../.env` });
 const tmi = require("tmi.js");
 const loadCommands = require("./utils/loadCommands.js");
@@ -5,6 +6,8 @@ const { loadSchedule, checkMessagesActivity } = require("./utils/scheduleUtils.j
 const { MainDatabase: db } = require("./utils/database.js");
 const { getRole } = require("./utils/getRole.js");
 
+// New TMI Client
+// ! Make sure you have populate process.env.[key]
 const client = new tmi.Client({
     options:
     {
@@ -24,9 +27,11 @@ const client = new tmi.Client({
     channels: ["nykho"]
 });
 
+// Map Commands
 client.commands = new Map();
 client.connect();
 
+// Once connected
 client.once("connected", async () =>
 {
     loadSchedule(client);
@@ -41,7 +46,9 @@ client.once("connected", async () =>
         }
         else
         {
+            // Slice messages from the tchat and return an Array like ["This", "Is", "A", "Message"]
             const args = message.slice(prefix.length).trim().split(/ +/g);
+            // Check if there are a txt command register in db
             const isTxt = await db.has(`txt.${args[0]}`);
 
             if (isTxt)
@@ -50,6 +57,7 @@ client.once("connected", async () =>
                 return client.say(channel, getTxt);
             }
 
+            // Check if command exist
             const command = args.shift();
             const cmd = client.commands.get(`${command}`);
 

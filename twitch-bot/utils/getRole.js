@@ -1,3 +1,4 @@
+// User roles
 const USER_ROLES = { VIEWER: "viewer", VIP: "vip", MODERATOR: "moderator", BROADCASTER: "broadcaster" };
 
 function getRole(user, channel)
