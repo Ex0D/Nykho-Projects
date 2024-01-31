@@ -7,7 +7,7 @@ const { MainDatabase: db } = require("./utils/database.js");
 const { getRole } = require("./utils/getRole.js");
 
 // New TMI Client
-// ! Make sure you have populate process.env.[key]
+// ! Make sure you have populate process.env at the root of the project
 const client = new tmi.Client({
     options:
     {
