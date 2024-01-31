@@ -24,7 +24,7 @@ const client = new tmi.Client({
         maxReconnectAttempts: 3,
         reconnectInterval: 15
     },
-    channels: ["ex_ode"]
+    channels: ["nykho"]
 });
 
 // Map Commands
