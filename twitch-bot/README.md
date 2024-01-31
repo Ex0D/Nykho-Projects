@@ -26,6 +26,16 @@ pnpm run start
 +prefix [prefix]
 ```
 
+Now Playing command (pass by [nowplaying](https://nowplaying.site))
+- Current :
+```
++song current
+```
+- Previous :
+```
++song previous
+```
+
 ► Schedule command (based on time or activity)
 - Time :
 ```
