@@ -15,7 +15,7 @@ async function checkMessagesActivity(client)
         }
         else
         {
-            return await db.add(`schedule.${i}.activity`, 1);
+            await db.add(`schedule.${i}.activity`, 1);
         };
     };
 };
