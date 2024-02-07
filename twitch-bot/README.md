@@ -14,6 +14,8 @@ pnpm install
 ```
 twitchBotUsername=
 twitchBotToken=
+widgetSongToken=
+channel=
 ```
 4 - Running the bot
 ```
