@@ -89,6 +89,8 @@ module.exports = {
 
             case "delete":
             case "del":
+            case "remove":
+            case "rm":
                 const scheduleToDelete = args[1];
 
                 if (!scheduleToDelete)
@@ -132,6 +134,7 @@ module.exports = {
             break;
 
             case "edit":
+            case "modify":
                 const scheduleToEdit = args[1];
 
                 if (!scheduleToEdit)
@@ -214,12 +217,13 @@ module.exports = {
                     await db.set(`schedule.${scheduleToEdit}.numberOfMessages`, parseInt(editNumberMessages));
                     await db.set(`schedule.${scheduleToEdit}.activityText`, editStringSpliced);
 
-                    return client.say(channel, `La tâche ${scheduleToEdit} a bien été édité !`);
+                    client.say(channel, `La tâche ${scheduleToEdit} a bien été édité !`);
                 }
 
             break;
 
             case "list":
+            case "ls":
                 const listSchedule = await db.get(`schedule`);
                 const strSchedule = Object.keys(listSchedule).reverse().join(" | ");
 

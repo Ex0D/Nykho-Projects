@@ -50,6 +50,8 @@ module.exports = {
 
             case "del":
             case "delete":
+            case "remove":
+            case "rm":
                 const commandToDelete = args[1];
 
                 if (!commandToDelete)
@@ -70,6 +72,7 @@ module.exports = {
             break;
 
             case "edit":
+            case "modify":
                 const commandToEdit = args[1];
 
                 if(!commandToEdit)
@@ -98,6 +101,7 @@ module.exports = {
             break;
 
             case "list":
+            case "ls":
                 const getTxtCommands = await db.get("txt");
                 const strCommands = Object.keys(getTxtCommands).reverse().join(" | ");
 
