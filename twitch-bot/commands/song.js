@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { MainDatabase: db } = require("../utils/database.js");
 
 module.exports =
 {
@@ -19,7 +20,8 @@ module.exports =
                 client.say(channel, `🎵 ► ${current.data}`);
             break;
             default:
-                client.say(channel, "Aucun son n'a été joué pour le moment");
+                const prefix = await db.getPrefix();
+                client.say(channel, `► ${prefix}song current | ${prefix}song previous`);
             break;
         }
     },

@@ -109,7 +109,7 @@ module.exports = {
             break;
 
             default:
-                client.say(channel, `Mauvaise utilisation de la commande txt`);
+                client.say(channel, "Mauvaise utilisation de la commande txt");
             break;
         }
     },
