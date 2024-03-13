@@ -28,7 +28,12 @@ pnpm run start
 +prefix [prefix]
 ```
 
-Now Playing command (pass by [nowplaying](https://nowplaying.site))
+► Help command (Adaptive with user permissions)
+```
++help
+```
+
+► Now Playing command (pass by [nowplaying](https://nowplaying.site))
 - Current :
 ```
 +song current
