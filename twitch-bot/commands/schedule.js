@@ -227,7 +227,7 @@ module.exports = {
                 const listSchedule = await db.get(`schedule`);
                 const strSchedule = Object.keys(listSchedule).reverse().join(" | ");
 
-                client.say(channel, `Liste des tâches actives : ${strSchedule}`);
+                client.say(channel, `Liste des tâches actives ► ${strSchedule}`);
             break;
 
             default:

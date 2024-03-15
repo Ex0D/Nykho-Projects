@@ -105,7 +105,7 @@ module.exports = {
                 const getTxtCommands = await db.get("txt");
                 const strCommands = Object.keys(getTxtCommands).reverse().join(" | ");
 
-                client.say(channel, `Liste des commandes txt : ${strCommands}`);
+                client.say(channel, `Liste des commandes txt ► ${strCommands}`);
             break;
 
             default:
