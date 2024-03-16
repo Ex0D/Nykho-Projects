@@ -1,0 +1,6 @@
+[submodule "discord-bot-the-finals"]
+	path = discord-bot-the-finals
+	url = https://github.com/Nykh0/discord-bot-the-finals
+[submodule "twitch-play-trackmania"]
+	path = twitch-play-trackmania
+	url = https://github.com/Nykh0/twitch-play-trackmania-node-js
