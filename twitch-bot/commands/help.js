@@ -13,7 +13,7 @@ module.exports = {
         });
 
         const joined = cmdsName.join(" | ");
-        client.say(channel, `Commandes du bot ► ${joined}`);
+        client.say(channel, `Bot commands ► ${joined}`);
     },
     name: "help",
     permission: ["broadcaster", "moderator", "vip", "viewer"]

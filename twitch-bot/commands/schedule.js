@@ -11,20 +11,20 @@ module.exports = {
 
                 if (!scheduleName)
                 {
-                    return client.say(channel, "Aucun argument passé pour le nom du schedule");
+                    return client.say(channel, "No argument passed for the schedule name");
                 }
 
                 const searchScheduleName = await db.has(`schedule.${scheduleName}`);
                 if (searchScheduleName)
                 {
-                    return client.say(channel, `${scheduleName} existe déjà !`);
+                    return client.say(channel, `${scheduleName} already exists !`);
                 }
 
                 const timeOrActivity = args[2];
 
                 if (!timeOrActivity)
                 {
-                    return client.say(channel, `Il manque des paramètres pour pouvoir compléter cette commande !`);
+                    return client.say(channel, `Some parameters are missing to complete this command !`);
                 }
 
                 if (timeOrActivity === "time")
@@ -33,21 +33,21 @@ module.exports = {
 
                     if (!cronSliced)
                     {
-                        return client.say(channel, `Expression cron non valide ! (Il manque des paramètres de temps)`);
+                        return client.say(channel, `Invalid cron expression ! (Time parameters missing)`);
                     }
 
                     const addCronString = cronSliced.join(" ");
 
                     if (!cron.validate(addCronString))
                     {
-                        return client.say(channel, `Expression cron non valide ! (Format cron incorrect)`);
+                        return client.say(channel, `Invalid cron expression ! (Incorrect cron format)`);
                     }
 
                     const stringSpliced = args.splice(8).join(" ");
 
                     if (!stringSpliced)
                     {
-                        return client.say(channel, `Il manque le texte à sauvegarder !`);
+                        return client.say(channel, `The text to be saved is missing!`);
                     }
 
                     await db.set(`schedule.${scheduleName}.time`, addCronString);
@@ -61,7 +61,7 @@ module.exports = {
                         name: scheduleName
                     });
 
-                    return client.say(channel, `Création de la tâche ${scheduleName} faite !`);
+                    return client.say(channel, `Task ${scheduleName} created !`);
                 }
                 else if (timeOrActivity === "activity")
                 {
@@ -69,21 +69,21 @@ module.exports = {
 
                     if (!numberMessages)
                     {
-                        return client.say(channel, "Il manque le nombre de messages !");
+                        return client.say(channel, "The number of messages is missing !");
                     }
 
                     const stringSpliced = args.splice(4).join(" ");
 
                     if (!stringSpliced)
                     {
-                        return client.say(channel, "Il manque le texte à sauvegarder");
+                        return client.say(channel, "The text to be saved is missing !");
                     }
 
                     await db.set(`schedule.${scheduleName}.activity`, 0);
                     await db.add(`schedule.${scheduleName}.numberOfMessages`, numberMessages);
                     await db.set(`schedule.${scheduleName}.activityText`, stringSpliced);
 
-                    return client.say(channel, `Création de la tâche ${scheduleName} faite !`);
+                    return client.say(channel, `Task ${scheduleName} created !`);
                 }
             break;
 
@@ -95,14 +95,14 @@ module.exports = {
 
                 if (!scheduleToDelete)
                 {
-                    return client.say(channel, `Aucun paramètre passé pour la supression d'une tâche !`);
+                    return client.say(channel, `No parameters passed to delete the task !`);
                 }
 
                 const searchScheduleNameToDel = await db.has(`schedule.${scheduleToDelete}`);
 
                 if (!searchScheduleNameToDel)
                 {
-                    return client.say(channel, `La tâche ${scheduleToDelete} n'existe pas !`);
+                    return client.say(channel, `Task ${scheduleToDelete} does not exist!`);
                 }
 
                 const timeN = await db.get(`schedule.${scheduleToDelete}.time`)
@@ -119,16 +119,16 @@ module.exports = {
                         }
                         else
                         {
-                            return client.say(channel, `${scheduleToDelete} n'a pas pu être supprimé (pas trouvé dans la liste des tâches)`)
+                            return client.say(channel, `${scheduleToDelete} could not be deleted (not found in task list) !`)
                         }
                     }
 
-                    client.say(channel, `${scheduleToDelete} a bien été supprimé`)
+                    client.say(channel, `${scheduleToDelete} has been deleted !`)
                 }
                 else
                 {
                     await db.delete(`schedule.${scheduleToDelete}`);
-                    return client.say(channel, `La tâche ${scheduleToDelete} a bien été supprimé !`);
+                    return client.say(channel, `The task ${scheduleToDelete} has been deleted !`);
                 }
 
             break;
@@ -139,14 +139,14 @@ module.exports = {
 
                 if (!scheduleToEdit)
                 {
-                    return client.say(channel, `Aucun paramètre passé pour éditer la tâche !`);
+                    return client.say(channel, `No parameters passed to edit the task !`);
                 }
 
                 const searchScheduleToEdit = await db.has(`schedule.${scheduleToEdit}`);
 
                 if (!searchScheduleToEdit)
                 {
-                    return client.say(channel, `${scheduleToEdit} n'existe pas !`)
+                    return client.say(channel, `${scheduleToEdit} does not exist !`)
                 }
 
                 const isTimer = await db.has(`schedule.${scheduleToEdit}.time`);
@@ -157,21 +157,21 @@ module.exports = {
 
                     if (!editCron)
                     {
-                        return client.say(channel, "Expression cron non valide ! (Il manque des paramètres de temps)");
+                        return client.say(channel, "Invalid cron expression ! (Time parameters missing)");
                     }
 
                     const editCronString = editCron.join(" ");
 
                     if (!cron.validate(editCronString))
                     {
-                        return client.say(channel, `Expression cron non valide ! (Format cron incorrect)`);
+                        return client.say(channel, `Invalid cron expression ! (Incorrect cron format)`);
                     }
 
                     const editMsgSpliced = args.splice(7).join(" ");
 
                     if (!editMsgSpliced)
                     {
-                        return client.say(channel, "Il manque le texte à sauvegarder !");
+                        return client.say(channel, "The text to be saved is missing !");
                     }
 
                     const tasks = cron.getTasks();
@@ -195,7 +195,7 @@ module.exports = {
                         name: scheduleToEdit
                     });
 
-                    return client.say(channel, `La tâche ${scheduleToEdit} a bien été édité !`);
+                    return client.say(channel, `The task ${scheduleToEdit} has been edited !`);
                 }
                 else
                 {
@@ -203,21 +203,21 @@ module.exports = {
 
                     if (!editNumberMessages)
                     {
-                        return client.say(channel, "Il manque le nombre de messages");
+                        return client.say(channel, "The number of messages is missing !");
                     }
 
                     const editStringSpliced = args.splice(3).join(" ");
 
                     if (!editStringSpliced)
                     {
-                        return client.say(channel, "Il manque le texte à sauvegarder !");
+                        return client.say(channel, "The text to be saved is missing !");
                     }
 
                     await db.set(`schedule.${scheduleToEdit}.activity`, 0);
                     await db.set(`schedule.${scheduleToEdit}.numberOfMessages`, parseInt(editNumberMessages));
                     await db.set(`schedule.${scheduleToEdit}.activityText`, editStringSpliced);
 
-                    client.say(channel, `La tâche ${scheduleToEdit} a bien été édité !`);
+                    client.say(channel, `The task ${scheduleToEdit} has been edited !`);
                 }
 
             break;
@@ -227,11 +227,11 @@ module.exports = {
                 const listSchedule = await db.get(`schedule`);
                 const strSchedule = Object.keys(listSchedule).reverse().join(" | ");
 
-                client.say(channel, `Liste des tâches actives ► ${strSchedule}`);
+                client.say(channel, `List of active tasks ► ${strSchedule}`);
             break;
 
             default:
-                client.say(channel, "Mauvaise utilisation de la commande schedule");
+                client.say(channel, "Incorrect use of the schedule command");
             break;
         }
     },

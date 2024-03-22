@@ -11,7 +11,7 @@ module.exports = {
 
                 if (!commandName)
                 {
-                    return client.say(channel, "Il manque le nom de la commande pour pouvoir la créer !");
+                    return client.say(channel, "The name of the command is missing to create it !");
                 }
 
                 const commandsAlreadyExist = [];
@@ -25,7 +25,7 @@ module.exports = {
 
                 if (commandsAlreadyExist.includes(commandName))
                 {
-                    return client.say(channel, `${commandName} est une commande du bot, impossible de la remplacer !`);
+                    return client.say(channel, `${commandName} is a bot command and cannot be replaced !`);
                 }
 
                 const searchCommand = await db.has(`txt.${commandName}`);
@@ -36,15 +36,15 @@ module.exports = {
 
                     if (!commandTxt)
                     {
-                        return client.say(channel, "Il manque le texte pour pouvoir créer la commande !");
+                        return client.say(channel, "The text is missing to create the command !");
                     }
 
                     await db.set(`txt.${commandName}`, `${commandTxt}`);
-                    client.say(channel, `La commande ${commandName} a bien été ajoutée`);
+                    client.say(channel, `The command ${commandName} has been added`);
                 }
                 else
                 {
-                    return client.say(channel, `La commande ${commandName} existe déjà. Editez la avec +txt edit !`);
+                    return client.say(channel, `The command ${commandName} already exist !`);
                 }
             break;
 
@@ -56,18 +56,18 @@ module.exports = {
 
                 if (!commandToDelete)
                 {
-                    return client.say(channel, "Il manque le nom de la commande à supprimer !");
+                    return client.say(channel, "The name of the command to be deleted is missing !");
                 }
 
                 const searchCommandToDelete = await db.has(`txt.${commandToDelete}`);
                 if (searchCommandToDelete)
                 {
                     await db.delete(`txt.${commandToDelete}`);
-                    client.say(channel, `La commande ${commandToDelete} a bien été supprimé !`);
+                    client.say(channel, `The command ${commandToDelete} has been deleted !`);
                 }
                 else
                 {
-                    return client.say(channel, `La commande ${commandToDelete} n'existe pas !`);
+                    return client.say(channel, `The command ${commandToDelete} does not exist !`);
                 }
             break;
 
@@ -77,14 +77,14 @@ module.exports = {
 
                 if(!commandToEdit)
                 {
-                    return client.say(channel, "Il manque le nom de la commande afin de pouvoir l'éditer");
+                    return client.say(channel, "The name of the command is missing so that it can be edited !");
                 }
 
                 const searchCommandToEdit = await db.has(`txt.${commandToEdit}`);
 
                 if (!searchCommandToEdit)
                 {
-                    return client.say(channel, `La commande ${commandToEdit} n'existe pas`);
+                    return client.say(channel, `The command ${commandToEdit} does not exist`);
                 }
                 else
                 {
@@ -92,11 +92,11 @@ module.exports = {
 
                     if (!textToEdit)
                     {
-                        return client.say(`La commande à besoin d'un texte pour être édité !`);
+                        return client.say("The command needs a text to be edited !");
                     }
 
                     await db.set(`txt.${commandToEdit}`, `${textToEdit}`);
-                    client.say(channel, `${commandToEdit} a bien été édité !`);
+                    client.say(channel, `${commandToEdit} has been edited !`);
                 }
             break;
 
@@ -105,11 +105,11 @@ module.exports = {
                 const getTxtCommands = await db.get("txt");
                 const strCommands = Object.keys(getTxtCommands).reverse().join(" | ");
 
-                client.say(channel, `Liste des commandes txt ► ${strCommands}`);
+                client.say(channel, `List of txt commands ► ${strCommands}`);
             break;
 
             default:
-                client.say(channel, "Mauvaise utilisation de la commande txt");
+                client.say(channel, "Incorrect use of the txt command");
             break;
         }
     },
