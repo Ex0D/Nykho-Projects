@@ -22,7 +22,8 @@ const client = new tmi.Client({
     {
         reconnect: true,
         maxReconnectAttempts: 3,
-        reconnectInterval: 15
+        reconnectInterval: 15,
+        secure: true
     },
     channels: [process.env.channel]
 });
@@ -34,12 +35,17 @@ client.connect();
 // Once connected
 client.once("connected", async () =>
 {
+    let lastTxt = 0;
+    let lastCmd = 0;
     loadSchedule(client);
     loadCommands(client);
+
     client.on("chat", async (channel, tags, message, self) =>
     {
         const prefix = await db.getPrefix();
+
         if (self) return;
+
         if (!message.startsWith(prefix))
         {
             return checkMessagesActivity(client);
@@ -50,11 +56,17 @@ client.once("connected", async () =>
             const args = message.slice(prefix.length).trim().split(/ +/g);
             // Check if there are a txt command register in db
             const isTxt = await db.has(`txt.${args[0]}`);
+            const timeNow = new Date().getTime();
 
             if (isTxt)
             {
-                const getTxt = await db.get(`txt.${args[0]}`)
-                return client.say(channel, getTxt);
+                const timeTxt = await db.getTxtTimeout();
+                if (timeNow - lastTxt > timeTxt * 1000)
+                {
+                    lastTxt = timeNow;
+                    const getTxt = await db.get(`txt.${args[0]}`)
+                    return client.say(channel, getTxt);
+                }
             }
 
             // Check if command exist
@@ -63,13 +75,21 @@ client.once("connected", async () =>
 
             if (cmd)
             {
-                if (cmd.permission.includes(getRole(tags, channel)))
+                if (cmd.permission.includes(getRole(tags, channel)));
                 {
-                    return cmd.run(client, channel, tags, message, self, args);
-                }
-                else
-                {
-                    return;
+                    if (getRole(tags, channel) === "moderator" || getRole(tags, channel) === "broadcaster")
+                    {
+                        return cmd.run(client, channel, tags, message, self, args);
+                    }
+                    else
+                    {
+                        lastCmd = timeNow;
+                        const timeCmd = await db.getCmdTimeout();
+                        if (timeNow - lastCmd > timeCmd * 1000)
+                        {
+                            return cmd.run(client, channel, tags, message, self, args);
+                        }
+                    }
                 }
             }
         }

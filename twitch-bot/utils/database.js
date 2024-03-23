@@ -24,6 +24,38 @@ class MainDatabase extends QuickDB
     {
         return await this.set("config.prefix", prefix);
     }
+
+    async getTxtTimeout()
+    {
+        const txtTimeout = await this.get("config.txtTimeout");
+        if (!txtTimeout)
+        {
+            return await this.set("config.txtTimeout", 3);
+        }
+
+        return txtTimeout;
+    }
+
+    async setTxtTimeout(num)
+    {
+        return await this.set("config.txtTimeout", parseInt(num));
+    }
+
+    async getCmdTimeout()
+    {
+        const cmdTimeout = await this.get("config.cmdTimeout");
+        if (!cmdTimeout)
+        {
+            return await this.set("config.cmdTimeout", 3);
+        }
+
+        return cmdTimeout;
+    }
+
+    async setCmdTimeout(num)
+    {
+        return await this.set("config.cmdTimeout", parseInt(num))
+    }
 }
 
 module.exports = {
