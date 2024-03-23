@@ -23,9 +23,19 @@ pnpm run start
 ```
 
 ## Commands :
-► Prefix command (default "+") :
+► Config command :
+- Prefix (default "+")
 ```
-+prefix [prefix]
++config prefix [prefix]
+```
+- Commands cooldown (default 3 seconds)
+```
++config timeout cmd [seconds]
+```
+
+- Texts commands cooldown (default 3 seconds)
+```
++config timeout txt [seconds]
 ```
 
 ► Help command (Adaptive with user permissions)
