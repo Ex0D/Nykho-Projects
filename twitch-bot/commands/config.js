@@ -75,6 +75,20 @@ module.exports =
                 }
             break;
 
+            case "all":
+                const allTimeout = args[2];
+
+                if (!allTimeout)
+                {
+                    return client.say("Timeout is missing !");
+                }
+
+                await db.setCmdTimeout(allTimeout);
+                await db.setTxtTimeout(allTimeout);
+
+                client.say(`Text and Commands now have ${allTimeout} second(s) of timeout !`)
+            break;
+
             default:
                 client.say(channel, "Incorrect use of the config command !");
             break;

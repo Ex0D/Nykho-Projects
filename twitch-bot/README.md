@@ -38,6 +38,11 @@ pnpm run start
 +config timeout txt [seconds]
 ```
 
+- Commands & Text commands (default 3 seconds)
+```
++config timeout all [seconds]
+```
+
 ► Help command (Adaptive with user permissions)
 ```
 +help
@@ -96,3 +101,5 @@ To list all schedule commands :
 ```
 +txt list
 ```
+
+(Cooldown does not apply to moderator / broadcaster of the channel)
