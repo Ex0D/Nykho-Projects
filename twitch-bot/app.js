@@ -83,10 +83,10 @@ client.once("connected", async () =>
                     }
                     else
                     {
-                        lastCmd = timeNow;
                         const timeCmd = await db.getCmdTimeout();
                         if (timeNow - lastCmd > timeCmd * 1000)
                         {
+                            lastCmd = timeNow;
                             return cmd.run(client, channel, tags, message, self, args);
                         }
                     }
