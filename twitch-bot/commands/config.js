@@ -54,6 +54,11 @@ module.exports =
                             return client.say("Timeout is missing !");
                         }
 
+                        if (allTimeout < 0)
+                        {
+                            return client.say("Timeout must be positive !");
+                        }
+
                         await db.setCmdTimeout(cmdTimeout);
 
                         client.say(`Commands now have ${cmdTimeout} second(s) of timeout  !`);
@@ -66,6 +71,11 @@ module.exports =
                         if (!txtTimeout)
                         {
                             return client.say("Timeout is missing !");
+                        }
+
+                        if (allTimeout < 0)
+                        {
+                            return client.say("Timeout must be positive !");
                         }
 
                         await db.setTxtTimeout(txtTimeout);
@@ -81,6 +91,11 @@ module.exports =
                 if (!allTimeout)
                 {
                     return client.say("Timeout is missing !");
+                }
+
+                if (allTimeout < 0)
+                {
+                    return client.say("Timeout must be positive !");
                 }
 
                 await db.setCmdTimeout(allTimeout);
