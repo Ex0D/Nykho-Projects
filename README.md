@@ -6,3 +6,5 @@ This repo lists all projects involving Nykho, each folder contain one project
 ► [discord-bot-the-finals](https://github.com/Nykh0/discord-bot-the-finals)
 
 ► [twitch-play-trackmania](https://github.com/Nykh0/twitch-play-trackmania-node-js)
+
+► [the-finals-rank-overlay](https://github.com/Nykh0/the-finals-rank-overlay)
